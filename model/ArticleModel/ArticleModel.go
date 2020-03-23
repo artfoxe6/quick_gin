@@ -7,18 +7,22 @@ import (
 
 type Article struct {
 	model.Base
-	Uid      int    `db:"uid"`
-	Title    string `db:"title"`
-	Content  string `db:"content"`
-	Favorite int    `db:"favorite"`
+	Uid      uint   `json:"uid"`
+	Title    string `gorm:"size:30" json:"title"`
+	Content  string `json:"content"`
+	Favorite uint   `json:"favorite"`
+}
+
+func (Article) TableName() string {
+	return "article"
 }
 
 type Articles []Article
 
-func (article *Article) Insert(r map[string]string) error {
+func (article *Article) Add() error {
 
-	sql := "insert into article (title,content,uid) values (?,?,?)"
-
-	_, err := db.Insert(sql, r["title"], r["content"], r["uid"])
-	return err
+	if err := db.Instance().Create(article).Error; err != nil {
+		return err
+	}
+	return nil
 }

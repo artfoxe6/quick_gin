@@ -21,12 +21,7 @@ func LoadUserRoute(r *gin.Engine) {
 		UserService.List(request.New(context))
 	})
 
-	//登录
-	g.GET("/login", func(c *gin.Context) {
-		UserService.Login(request.New(c))
-	})
-
-	//获取用户信息以及用户发表的文章
+	//获取用户信息以及发表的文章
 	g.GET("/info_with_article", func(c *gin.Context) {
 		UserService.InfoWithArticle(request.New(c))
 	})

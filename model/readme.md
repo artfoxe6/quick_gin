@@ -1,25 +1,7 @@
 ##模型说明
 
-    本项目未使用ORM库,而是采用了近似sql的sqlx
-    https://github.com/jmoiron/sqlx
-
-    model的定义不需要严格按照数据库表定义
-
-    比如user表的字段 [id,name,age,created_at...],
-    有可能你当前这个项目只用到了[id,name]，
-    那你的model只需要定义用到的字段
-
-    type User struct {
-        ID          uint64     `db:"id" `
-        Name        *string    `db:"user_name"`
-    }
-    由于我们使用的sqlx本不是ORM，
-    定义struct的意义只在于接受结果，
-    而不一定要和数据表一一映射，
-    只要你定义的struct字段包含sqlx结果集返回的字段就行
-    
-    如果接收的字段可能为空，那么字段需要定义为指针类型，
-    例如上面的Name字段，否则接收到空值时将产生错误
+    本项目未使用gorm库
+    https://github.com/jinzhu/gorm
 
 ##惯例和约定
 
@@ -31,5 +13,4 @@
 
 ##迁移文件
 
-    项目中最好包含数据表的迁移文件，在model下面新建migrate.sql文件，
-    包含创建数据表的sql代码
+    migrate目录下的migrate.go是数据库迁移代码

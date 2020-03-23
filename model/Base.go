@@ -3,8 +3,8 @@ package model
 import "time"
 
 type Base struct {
-	ID        uint64     `db:"id" `
-	CreatedAt *time.Time `db:"created_at"`
-	UpdatedAt *time.Time `db:"updated_at"`
-	DeletedAt *time.Time `db:"deleted_at"`
+	ID        uint       `gorm:"primary_key" json:"id"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `sql:"index" json:"deleted_at"`
 }

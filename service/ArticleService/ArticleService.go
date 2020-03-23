@@ -2,6 +2,7 @@ package ArticleService
 
 import (
 	"quick_gin/model/ArticleModel"
+	"quick_gin/util/lib"
 	"quick_gin/util/request"
 )
 
@@ -14,9 +15,18 @@ func Add(r *request.Request) {
 		return
 	}
 
-	articleModel := new(ArticleModel.Article)
+	inputs := r.Posts()
 
-	err = articleModel.Insert(r.Posts())
+	//articleModel := new(ArticleModel.Article)
+
+	articleModel := ArticleModel.Article{
+		Uid:      uint(lib.Int(inputs["uid"])),
+		Title:    inputs["title"],
+		Content:  inputs["content"],
+		Favorite: 0,
+	}
+
+	err = articleModel.Add()
 
 	if err != nil {
 		r.Error(err.Error())

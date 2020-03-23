@@ -1,7 +1,6 @@
 package UserModel
 
 import (
-	"golang.org/x/crypto/bcrypt"
 	"quick_gin/config/db"
 	"quick_gin/model"
 	"quick_gin/model/ArticleModel"
@@ -10,59 +9,35 @@ import (
 
 type User struct {
 	model.Base
-	UserName    *string    `db:"user_name"`
-	Age         *int       `db:"age"`
-	Password    *string    `db:"password"`
-	LastLoginAt *time.Time `db:"last_login_at"`
+	UserName    string                `json:"user_name"`
+	Age         uint8                 `json:"age"`
+	Password    string                `json:"password"`
+	LastLoginAt *time.Time            `json:"last_login_at"`
+	Articles    ArticleModel.Articles `gorm:"foreignkey:Uid" json:"articles"`
 }
 
-func (user *User) Add(r map[string]string) error {
-	sql := "insert into user (user_name,age,password,created_at) values (?,?,?,?)"
-	createdAt := time.Now().Format("2006-01-02 15:04:05")
-	b, err := bcrypt.GenerateFromPassword([]byte(r["password"]), bcrypt.MinCost)
-	if err != nil {
+func (User) TableName() string {
+	return "user"
+}
+
+func (user *User) Add() error {
+	if err := db.Instance().Create(user).Error; err != nil {
 		return err
 	}
-	_, err = db.Insert(sql, r["user_name"], r["age"], string(b), createdAt)
-	return err
+	return nil
 }
 
-func (user *User) Find(r map[string]string) (map[string]interface{}, error) {
-	sql := "select password from user where user_name=? limit 1"
-	err := db.Get(user, sql, r["user_name"])
-	return user.Source(), err
-}
+type Users []User
 
-type UserList []User
-
-func (userList *UserList) List(r map[string]string) ([]map[string]interface{}, error) {
-	sql := "select user_name,last_login_at,age from user "
-	err := db.Select(userList, sql)
-	if err != nil {
-		return nil, err
+func (users *Users) List() error {
+	if err := db.Instance().Find(users).Error; err != nil {
+		return err
 	}
-	return userList.ToArray(), nil
+	return nil
 }
-
-type UserWithArticle struct {
-	User
-	Articles ArticleModel.Articles
-}
-
-func (userWithArticle *UserWithArticle) WithArticle(r map[string]string) (map[string]interface{}, error) {
-	userSql := "select * from user where id=? limit 1"
-	err := db.Get(userWithArticle, userSql, r["id"])
-	if err != nil {
-		return nil, err
+func (users *Users) ListWithArticles() error {
+	if err := db.Instance().Preload("Articles").Find(users).Error; err != nil {
+		return err
 	}
-	articleSql := "select uid,title,content from article where uid = ?"
-
-	articles := new(ArticleModel.Articles)
-
-	err = db.Select(articles, articleSql, r["id"])
-	if err != nil {
-		return nil, err
-	}
-	userWithArticle.Articles = *articles
-	return userWithArticle.Source(), nil
+	return nil
 }
