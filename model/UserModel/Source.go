@@ -1,5 +1,7 @@
 package UserModel
 
+import "time"
+
 func (user *User) Source() map[string]interface{} {
 	return map[string]interface{}{
 		"user_name":     user.UserName,
@@ -15,10 +17,17 @@ func (userList *UserList) ToArray() []map[string]interface{} {
 		res = append(res, map[string]interface{}{
 			"user_name":     v.UserName,
 			"age":           v.Age,
-			"last_login_at": (*(v.LastLoginAt)).Format("2006-01-02 15:04:05"),
+			"last_login_at": formatDate(v.LastLoginAt),
 		})
 	}
 	return res
+}
+
+func formatDate(date *time.Time) interface{} {
+	if date != nil {
+		return (*date).Format("2006-01-02 15:04:05")
+	}
+	return nil
 }
 
 func (userWithArticle *UserWithArticle) Source() map[string]interface{} {

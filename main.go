@@ -14,13 +14,13 @@ import (
 )
 
 func main() {
-	// 初始化路由
-	route.Init()
+	//加载配置
+	env.Load()
 	server := &http.Server{
-		Addr:         ":" + strconv.Itoa(env.Server().Port),
-		Handler:      route.Route,
-		ReadTimeout:  time.Duration(env.Server().ReadTimeout) * time.Second,
-		WriteTimeout: time.Duration(env.Server().WriteTimeout) * time.Second,
+		Addr:         ":" + strconv.Itoa(env.Server.Port),
+		Handler:      route.Load(),
+		ReadTimeout:  time.Duration(env.Server.ReadTimeout) * time.Second,
+		WriteTimeout: time.Duration(env.Server.WriteTimeout) * time.Second,
 	}
 
 	go func() {
@@ -32,7 +32,7 @@ func main() {
 
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	shutdownTime := env.Server().ShutdownTimeout
+	shutdownTime := env.Server.ShutdownTimeout
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(shutdownTime)*time.Second)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
