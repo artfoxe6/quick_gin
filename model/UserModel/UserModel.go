@@ -49,7 +49,7 @@ type UserWithArticle struct {
 	Articles ArticleModel.Articles
 }
 
-func (userWithArticle *UserWithArticle) Info(r map[string]string) (map[string]interface{}, error) {
+func (userWithArticle *UserWithArticle) WithArticle(r map[string]string) (map[string]interface{}, error) {
 	userSql := "select * from user where id=? limit 1"
 	err := db.Get(userWithArticle, userSql, r["id"])
 	if err != nil {

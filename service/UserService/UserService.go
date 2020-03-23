@@ -59,7 +59,7 @@ func InfoWithArticle(r *request.Request) {
 		return
 	}
 	m := new(UserModel.UserWithArticle)
-	list, err := m.Info(r.Gets())
+	list, err := m.WithArticle(r.Gets())
 	if err != nil {
 		r.Error(err.Error())
 		return
