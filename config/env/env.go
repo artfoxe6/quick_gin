@@ -5,57 +5,9 @@ import (
 	"github.com/go-ini/ini"
 	"log"
 	"strings"
-	"time"
 )
 
-var (
-	Server = struct {
-		Port            int
-		DebugMode       string
-		ReadTimeout     int
-		WriteTimeout    int
-		ShutdownTimeout int
-	}{}
-	ErrLog = struct {
-		Open      int
-		Type      string
-		LocalPath string
-		SentryUrl string
-	}{}
-	StdLog = struct {
-		Open int
-		Path string
-	}{}
-	Database = struct {
-		Connection string
-		User       string
-		Password   string
-		Host       string
-		DbName     string
-	}{}
-	Redis = struct {
-		Host        string
-		Password    string
-		MaxIdle     int
-		MaxActive   int
-		IdleTimeout time.Duration
-		Db          int
-		Timeout     int
-	}{}
-	Jwt = struct {
-		Key string
-		Exp int
-	}{}
 
-	//----------- (1)第一步，定义配置文件结构体 -----------
-	//ConfigName = struct {
-	//	Key1 int
-	//	Key2 string
-	//	Keyn string
-	//}{}
-	//-----------------------------------------------
-
-)
 
 // 加载配置信息
 func Load() {
@@ -70,7 +22,7 @@ func Load() {
 	mapTo(h, "redis", &Redis)
 	mapTo(h, "jwt", &Jwt)
 
-	//---------- (2)第二步，配置文件到结构体的映射 -----------
+	//---------- 配置文件到结构体的映射 -----------
 	//
 	//mapTo(h, "configName", &ConfigName)
 	//---------------------------------------

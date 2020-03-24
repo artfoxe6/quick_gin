@@ -1,62 +1,55 @@
-# quick_gin
+# quick-gin
 
 ## 介绍
-    quick_gin是基于gin框架的脚手架，
-    根据自己经验整理的一套代码组织架构
-    开箱即用，快速开始业务编写，
-    封装了常用的辅助方法，开启平滑重启
-    目的就是为了提高开发效率
+    quick-gin是一个基于gin框架的脚手架，基于gin，做了如下一些整理
     
-## 组织架构
+    01. 规划了一套代码组织架构
+    02. 对gin.Context进行了扩展，增加很多辅助方法
+    03. 集成跨域中间件
+    04. 集成请求缓存中间件，
+    05. 使用GORM
+    06. 封装Jwt
+    07. 已经配置好MySQL，Redis 开箱即用
+    08. Sentry日志
+    09. env全局配置
+    10. 自带平滑重启
+    11. 完整的代码实例和说明文档
+    12. 命令行操作 create_gin_app app_name
+    
+## 代码组织架构
     Route->Cache->Service->Model
-    路由层：路由规则和中间件
-    Service：服务层 验证请求 逻辑处理 返回数据
     
-    Cache： 缓存层 简单的查询缓存
-    缓存使用gin的cache中间件
-    https://github.com/gin-contrib/cache
-    
-    Model：数据层 数据库CURD
-    ORM采用gorm
-    https://github.com/jinzhu/gorm
+    Route：      路由规则和中间件
+    Cache：      对需要的请求做缓存
+    Service：    验证请求，逻辑处理
+    Model：      数据库CURD，数据资源化
     
 ## 目录说明
-    /config/
-        配置初始化
-    
-    /middleware/
-        路由中间件
-    
-    /model/
-        Model数据层
-        
-    /route/
-        路由规则
-        
-    /service/
-        Service逻辑层
-        
-    /util/
-        存放工具类
-        
-    /config.ini
-        真个项目的配置文件，采用ini配置方式
-        
-    /main.go
-        入口文件，
-        负责整个服务的启动，
+    /config/        配置
+    /middleware/    中间件
+    /model/         模型
+    /route/         路由规则
+    /service/       业务逻辑
+    /util/          工具类
+    /config.ini     整个项目的配置文件，采用ini配置方式
+    /main.go        负责整个服务的启动，
         
 ## 相关目录下还有更详细的惯例和说明
 
-    在对应模块下新建文件前请务必阅读惯例约定
+    开始对应模块前，请先阅读对应的惯例和约定
 
-## 如何开始上手
+## 如何开始上手编写业务
     
-    1. 检查config.ini，了解大概配置
-    2. 在route下新建路由，路由映射到service的方法
-    3. 编写service业务逻辑，用到的数据由model层提供
-    4. 编写model层，负责数据库CURD
+    1. 检查config.ini     修改配置参数
+    2. 新建route文件       路由映射到service的方法
+    3. 新建service文件     用到的数据由model层提供
+    4. 新建model文件       负责数据库CURD
     
+    上述步骤可以参考自带的实例
+    
+## 注意事项
 
-
+    确保go module开启
+    推荐设置 goproxy，推荐 https://mirrors.aliyun.com/goproxy/
+    请在config.ini中修改mysql和redis的配置
     
