@@ -27,6 +27,19 @@ then
 	g=`go version`
 	version=${g:13:4}
 	sed -i "s/1.13/$version/" go.mod
+	echo 
+	echo 本项目既是一套脚手架，同时也是gin框架的一个demo，可直接运行，但需要做好以下几点：
+	echo 
+	echo 1. golang版本要求大于等于1.12
+	echo 
+	echo 2. 为了依赖能够顺利下载，推荐设置环境变量 GOPROXY="https://mirrors.aliyun.com/goproxy/,direct"
+	echo 
+	echo 3. 确保MySQL/MariaDB已安装并启动，正确配置config.ini中的database参数，如果需要运行案例，还需要创建 test 数据库，运行程序将自动创建user和article两张表
+	echo 
+	echo 4. 确保Redis已安装并启动，正确配置config中redis参数
+	echo 
+	echo 5. go run main.go
+	echo 
 	exit 0
 else
 	echo "git not exists"
