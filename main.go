@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"quick_gin/config/env"
-	"quick_gin/model/migrate"
+	"quick_gin/model/Migrate"
 	"quick_gin/route"
 	"strconv"
 	"syscall"
