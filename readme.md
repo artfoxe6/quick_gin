@@ -1,5 +1,7 @@
 # quick-gin
 
+
+
 ## 介绍
 
     quick-gin是一个基于gin框架的脚手架，基于gin做了如下一些整理
@@ -16,10 +18,19 @@
     10. 自带平滑重启
     11. 完整的代码实例和说明文档
     12. 命令行操作 create_gin_app app_name
+
+## 快速使用
+
+    # wget -qO create_gin_app https://github.com/codeAB/quick_gin/releases/download/v0.1/create_gin_app
+    # chmod +x create_gin_app
+    # ./create_gin_app app_name
+    # 此时项目已经成功创建，如需立即尝试运行，请阅读下方的注意事项
+    
+    *为了以后在任何地方创建项目，你可以将 create_gin_app 移到环境变量中
     
 ## 注意事项
 
-    本项目既是一套脚手架，同时也是gin框架的一个demo，可直接运行，但需要做好以下几点：
+    本项目既是一套脚手架，同时也是gin框架的一个demo，可直接运行，但需确保以下几点：
 
     1. golang版本要求大于等于1.12
     
