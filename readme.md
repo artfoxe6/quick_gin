@@ -19,16 +19,18 @@
     
 ## 注意事项
 
+    本项目既是一套脚手架，同时也是gin框架的一个demo，可直接运行，但需要做好以下几点：
+
     1. golang版本要求大于等于1.12
     
-    2. 为了依赖能够顺利下载，推荐设置环境 GOPROXY="https://mirrors.aliyun.com/goproxy/,direct"
+    2. 为了依赖能够顺利下载，推荐设置环境变量 GOPROXY="https://mirrors.aliyun.com/goproxy/,direct"
     
     3. 确保MySQL/MariaDB已安装并启动，正确配置config.ini中的database参数，
     如果需要运行案例，还需要创建 test 数据库，运行程序将自动创建user和article两张表
     
     4. 确保Redis已安装并启动，正确配置config中redis参数
     
-    5. 以上步骤完成后就可以运行本程序了: go run main.go
+    5. go run main.go
     
 ## 目录说明
     /config/        配置
