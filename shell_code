@@ -22,9 +22,8 @@ if [ $? -eq 0  ]
 then
 	git clone https://github.com/codeAB/quick_gin.git $1
 	cd $1
-	rm -rf $1/.git $1/.idea
+	rm -rf .git .idea
 	read_dir `pwd` $1
-	echo "success"
 	exit 0
 else
 	echo "git not exists"
