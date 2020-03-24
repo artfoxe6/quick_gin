@@ -1,5 +1,5 @@
 #!/bin/bash
-wget -O temp https://github.com/codeAB/quick_gin/releases/download/v0.1/create_gin_app
+wget -q -O temp https://github.com/codeAB/quick_gin/releases/download/v0.1/create_gin_app
 chmod +x ./temp
 
 ./temp $1
