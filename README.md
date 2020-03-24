@@ -8,11 +8,17 @@
     目的就是为了提高开发效率
     
 ## 组织架构
-    Route->Service->Cache->Model
+    Route->Cache->Service->Model
     路由层：路由规则和中间件
     Service：服务层 验证请求 逻辑处理 返回数据
+    
     Cache： 缓存层 简单的查询缓存
+    缓存使用gin的cache中间件
+    https://github.com/gin-contrib/cache
+    
     Model：数据层 数据库CURD
+    ORM采用gorm
+    https://github.com/jinzhu/gorm
     
 ## 目录说明
     /config/

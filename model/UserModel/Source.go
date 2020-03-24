@@ -13,3 +13,11 @@ func (users *Users) ToArray() []map[string]interface{} {
 	}
 	return temp
 }
+
+func (user *User) Source() map[string]interface{} {
+	return map[string]interface{}{
+		"user_name":     user.UserName,
+		"age":           user.Age,
+		"last_login_at": user.LastLoginAt,
+	}
+}

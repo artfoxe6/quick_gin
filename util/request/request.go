@@ -21,6 +21,16 @@ func Ctx(r *Request) *gin.Context {
 	return (*gin.Context)(r)
 }
 
+//包装*gin.Context 的 Abort
+func (r *Request) Abort() {
+	Ctx(r).Abort()
+}
+
+//包装*gin.Context 的 Next
+func (r *Request) Next() {
+	Ctx(r).Next()
+}
+
 //获取GET参数
 func (r *Request) Gets() map[string]string {
 	values := r.Request.URL.Query()

@@ -1,4 +1,4 @@
-package migrate
+package Migrate
 
 import (
 	"quick_gin/config/db"
@@ -6,7 +6,7 @@ import (
 	"quick_gin/model/UserModel"
 )
 
-func Migrate() {
+func Run() {
 	db.Instance().AutoMigrate(
 		&UserModel.User{},
 		&ArticleModel.Article{},

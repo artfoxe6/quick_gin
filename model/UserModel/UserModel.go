@@ -9,9 +9,9 @@ import (
 
 type User struct {
 	model.Base
-	UserName    string                `json:"user_name"`
-	Age         uint8                 `json:"age"`
-	Password    string                `json:"password"`
+	UserName    string                `json:"user_name" gorm:"size:30"`
+	Age         uint8                 `json:"age" gorm:"type:tinyint"`
+	Password    string                `json:"password" gotm:"size:100"`
 	LastLoginAt *time.Time            `json:"last_login_at"`
 	Articles    ArticleModel.Articles `gorm:"foreignkey:Uid" json:"articles"`
 }
@@ -37,6 +37,13 @@ func (users *Users) List() error {
 }
 func (users *Users) ListWithArticles() error {
 	if err := db.Instance().Preload("Articles").Find(users).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (user *User) Info(id int) error {
+	if err := db.Instance().Where("id=?", id).First(user).Error; err != nil {
 		return err
 	}
 	return nil

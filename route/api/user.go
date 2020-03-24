@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"quick_gin/middleware"
 	"quick_gin/service/UserService"
 	"quick_gin/util/request"
 )
@@ -21,8 +22,24 @@ func LoadUserRoute(r *gin.Engine) {
 		UserService.List(request.New(context))
 	})
 
-	//获取用户信息以及发表的文章
-	g.GET("/info_with_article", func(c *gin.Context) {
-		UserService.InfoWithArticle(request.New(c))
+	//用户列表以及发表的文章
+	g.GET("/list_with_article", func(c *gin.Context) {
+		UserService.ListWithArticles(request.New(c))
 	})
+
+	//获取token
+	g.GET("/token", func(context *gin.Context) {
+
+		UserService.CreateToken(request.New(context))
+	})
+	//需要token认证才能请求的路由
+	auth := r.Group("/user/info")
+	auth.Use(middleware.Auth())
+	{
+		//用户列表
+		auth.GET("/", func(context *gin.Context) {
+			UserService.Info(request.New(context))
+		})
+	}
+
 }

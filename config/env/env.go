@@ -42,6 +42,10 @@ var (
 		Db          int
 		Timeout     int
 	}{}
+	Jwt = struct {
+		Key string
+		Exp int
+	}{}
 
 	//----------- (1)第一步，定义配置文件结构体 -----------
 	//ConfigName = struct {
@@ -64,6 +68,7 @@ func Load() {
 	mapTo(h, "stdLog", &StdLog)
 	mapTo(h, "database", &Database)
 	mapTo(h, "redis", &Redis)
+	mapTo(h, "jwt", &Jwt)
 
 	//---------- (2)第二步，配置文件到结构体的映射 -----------
 	//

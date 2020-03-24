@@ -44,12 +44,19 @@ func Instance() redis.Conn {
 	return instance.Get()
 }
 
+func Pool() *redis.Pool {
+	if !isLoad {
+		connection()
+	}
+	return instance
+}
+
 //缓存字节数组到缓存
 func Set(key string, data interface{}, ex int) {
 	temp, _ := json.Marshal(data)
 	_, err := Instance().Do("set", key, temp, "EX", ex)
 	if err != nil {
-		log.Printf("%v", err)
+		//log.Printf("%v", err)
 	}
 }
 
@@ -63,7 +70,8 @@ func Get(key string) (interface{}, bool) {
 		if err == nil {
 			return dst, true
 		} else {
-			log.Fatalf("%v", err)
+			//log.Fatalf("%v", err)
+			return nil, false
 		}
 	}
 	return nil, false

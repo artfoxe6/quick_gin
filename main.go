@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"quick_gin/config/env"
+	"quick_gin/model/migrate"
 	"quick_gin/route"
 	"strconv"
 	"syscall"
@@ -16,6 +17,9 @@ import (
 func main() {
 	//加载配置
 	env.Load()
+	//自动迁移
+	Migrate.Run()
+
 	server := &http.Server{
 		Addr:         ":" + strconv.Itoa(env.Server.Port),
 		Handler:      route.Load(),
@@ -28,6 +32,9 @@ func main() {
 			log.Fatalf("%v", err)
 		}
 	}()
+
+	//--------- 平滑重启 ---------------
+
 	quit := make(chan os.Signal, 1)
 
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
