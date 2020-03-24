@@ -24,6 +24,9 @@ then
 	cd $1
 	rm -rf .git .idea
 	read_dir `pwd` $1
+	g=`go version`
+	version=${g:13:4}
+	sed -i "s/1.13/$version/" go.mod
 	exit 0
 else
 	echo "git not exists"
