@@ -17,7 +17,7 @@
 
 ## 快速使用
 
-![image](https://github.com/codeAB/quick_gin/releases/download/v0.1/quick_gin_1.gif)
+![image](https://github.com/codeAB/store/blob/master/images/quick_gin_1.gif?raw=true)
 
     # wget -qO create_gin_app https://github.com/codeAB/quick_gin/releases/download/v0.1/create_gin_app
     # chmod +x create_gin_app
