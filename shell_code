@@ -20,7 +20,7 @@ read_dir(){
 which "git" > /dev/null
 if [ $? -eq 0  ]
 then
-	git clone https://github.com/codeAB/quick_gin.git $1 > /dev/null
+	git clone https://github.com/codeAB/quick_gin.git $1 > /dev/null 2>&1
 	cd $1
 	rm -rf .git .idea
 	read_dir `pwd` $1
