@@ -4,7 +4,7 @@
 
 ## 惯例和约定
 
-    比如我要新建一个User模型，在model中新建 UserModel文件夹【文件夹名大写驼峰】，
+    比如我要新建一个User模型，在model下新建 UserModel文件夹【文件夹名大写驼峰】，
     
     然后在UserModel下新建 UserModel文件【文件名大写驼峰】，
     

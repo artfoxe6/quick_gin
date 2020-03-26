@@ -1,4 +1,4 @@
-package ArticleService
+package article
 
 import (
 	"quick_gin/model/ArticleModel"
