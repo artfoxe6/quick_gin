@@ -34,7 +34,7 @@ func Detail(r *request.Request) {
 		return
 	}
 	article := new(ArticleModel.Article)
-	id := lib.Int(r.Get("id", "0"))
+	id := lib.Int(r.Id())
 	err = article.Detail(id)
 	if err != nil {
 		r.Error(err.Error())

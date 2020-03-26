@@ -66,7 +66,7 @@ func Info(r *request.Request) {
 		return
 	}
 	user := new(UserModel.User)
-	id := lib.Int(r.Get("id", ""))
+	id := lib.Int(r.Id())
 	err := user.Info(id)
 	if err != nil {
 		r.Error(err.Error())
@@ -81,7 +81,7 @@ func CreateToken(r *request.Request) {
 		r.Error(err.Error())
 		return
 	}
-	jwtToken, err := token.CreateJwtToken(r.Get("uid", ""))
+	jwtToken, err := token.CreateJwtToken(r.DefaultGet("uid", ""))
 	if err != nil {
 		r.Error(err.Error())
 		return

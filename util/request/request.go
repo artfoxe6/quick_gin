@@ -40,6 +40,12 @@ func (r *Request) Gets() map[string]string {
 	}
 	return temp
 }
+func (r *Request) Get(k string) string {
+	return Ctx(r).Query(k)
+}
+func (r *Request) DefaultGet(k,v string) string {
+	return Ctx(r).DefaultQuery(k,v)
+}
 
 //获取POST参数
 func (r *Request) Posts() map[string]string {
@@ -54,13 +60,11 @@ func (r *Request) Posts() map[string]string {
 	}
 	return temp
 }
-
-//获取请求参数
-func (r *Request) Inputs() map[string]string {
-	if r.Request.Method == "POST" {
-		return r.Posts()
-	}
-	return r.Gets()
+func (r *Request) Post(k string) string {
+	return Ctx(r).PostForm(k)
+}
+func (r *Request) DefaultPost(k,v string) string {
+	return Ctx(r).DefaultPostForm(k,v)
 }
 
 //获取指定Headers
@@ -71,27 +75,8 @@ func (r *Request) Headers() map[string]string {
 	}
 	return temp
 }
-
-//获取指定Header
-func (r *Request) Header(k, d string) string {
-	temp := r.Headers()
-
-	value, ok := temp[k]
-	if ok {
-		return value
-	}
-	return d
-}
-
-//从map中取出一个值，如果key不存在返回默认值
-func (r *Request) Get(k, d string) string {
-	temp := r.Inputs()
-
-	value, ok := temp[k]
-	if ok {
-		return value
-	}
-	return d
+func (r *Request) Header(k string) string {
+	return Ctx(r).GetHeader(k)
 }
 
 //错误返回请求
@@ -137,12 +122,12 @@ func (r *Request) Validate(list []string) error {
 
 // 获取id参数
 func (r *Request) Id() string {
-	return r.Get("id", "0")
+	return r.DefaultGet("id", "0")
 }
 
 //获取请求中的分页信息
 func (r *Request) Page() int {
-	temp := r.Get("page", "1")
+	temp := r.DefaultGet("page", "1")
 	page, err := strconv.Atoi(temp)
 	if err != nil {
 		log.Fatalf("%v", err)
@@ -152,7 +137,7 @@ func (r *Request) Page() int {
 
 //获取请求中的分页信息
 func (r *Request) PerPage() int {
-	temp := r.Get("per_page", "10")
+	temp := r.DefaultGet("per_page", "10")
 	perPage, err := strconv.Atoi(temp)
 	if err != nil {
 		log.Fatalf("%v", err)

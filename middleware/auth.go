@@ -10,7 +10,7 @@ func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		r := request.New(c)
 
-		t := r.Header("Authorization", "")
+		t := r.Header("Authorization")
 		if t == "" {
 			r.Error("认证失败")
 			r.Abort()
