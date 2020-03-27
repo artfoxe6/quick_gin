@@ -7,8 +7,6 @@ import (
 	"strings"
 )
 
-
-
 // 加载配置信息
 func Load() {
 	h, err := ini.Load("config.ini")
@@ -30,7 +28,7 @@ func Load() {
 	if strings.ToUpper(ErrLog.Type) == "SENTRY" && ErrLog.Open == 1 {
 		err := raven.SetDSN(ErrLog.SentryUrl)
 		if err != nil {
-			log.Fatalf("%v", err)
+			log.Fatalln("Sentry错误", err.Error())
 		}
 	}
 }

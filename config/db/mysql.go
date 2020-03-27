@@ -17,7 +17,7 @@ func connection() {
 	instance, err = gorm.Open(c.Connection, c.User+":"+c.Password+"@tcp("+c.Host+")/"+
 		c.DbName+"?charset=utf8mb4&parseTime=True&loc=Local")
 	if err != nil {
-		log.Fatalf("err: %v", err)
+		log.Fatalln("MySQL连接错误", err.Error())
 	}
 	isLoad = true
 }

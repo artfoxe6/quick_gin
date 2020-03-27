@@ -36,28 +36,13 @@
     完整的代码实例和说明文档
     命令行创建项目 create_gin_app blog 【命令行创建项目只适用于Linux】
     
-
-    
-#### 目录说明
-    /config/        配置
-    /middleware/    中间件
-    /model/         模型
-    /route/         路由规则
-    /service/       业务逻辑
-    /util/          工具类
-    /config.ini     整个项目的配置文件，采用ini配置方式
-    /main.go        负责整个服务的启动，
-**请注意具体目录下更详细的惯例和说明readme**
-    
 #### 代码组织架构
-    Route->Cache->Service->Model
-    
-    Route：      路由规则和中间件
-    Cache：      对需要的请求做缓存
-    Service：    验证请求，逻辑处理
-    Model：      数据库CURD，数据资源化
+    Route   路由规则，中间件，Apidoc
+    Cache   请求缓存
+    Service 验证请求，业务处理
+    Model   数据库CURD，资源化
 
-#### 如何开始上手编写业务
+#### 快速开始业务编写
     
     检查config.ini     修改配置参数
     新建route文件       路由映射到service的方法

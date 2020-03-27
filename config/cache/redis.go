@@ -23,7 +23,7 @@ func connection() {
 				redis.DialReadTimeout(time.Second*time.Duration(c.Timeout)),
 				redis.DialWriteTimeout(time.Second*time.Duration(c.Timeout)))
 			if err != nil {
-				log.Fatalln(err.Error())
+				log.Fatalln("Redis连接错误", err.Error())
 			}
 			return con, err
 		},
