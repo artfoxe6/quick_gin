@@ -34,7 +34,7 @@
     env全局配置
     自带平滑重启
     完整的代码实例和说明文档
-    命令行创建项目 create_gin_app blog 【命令行创建项目只适用于Linux】
+    命令行创建项目 create_gin_app blog 【命令行创建项目只适用于Linux Mac】
     
 #### 代码组织架构
     Route   路由规则，中间件，Apidoc
