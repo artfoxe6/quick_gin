@@ -41,3 +41,10 @@ func ErrLog(err error) {
 		f.Write([]byte(fmt.Sprintf("%v", err)))
 	}
 }
+
+// 将m2合并到m1
+func MergeMap(m1, m2 map[string]interface{}) {
+	for k, v := range m2 {
+		m1[k] = v
+	}
+}

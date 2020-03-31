@@ -5,15 +5,11 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"quick_gin/config/env"
-	"time"
 )
 
 // 生成token
-func CreateJwtToken(uid string) (string, error) {
-	t := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"exp": time.Now().Add(time.Duration(env.Jwt.Exp) * time.Second).Unix(),
-		"sub": uid,
-	})
+func CreateJwtToken(data map[string]interface{}) (string, error) {
+	t := jwt.NewWithClaims(jwt.SigningMethodHS256, (jwt.MapClaims)(data))
 	tokenString, err := t.SignedString([]byte(env.Jwt.Key))
 	if err != nil {
 		log.Fatalf("%v", err)
