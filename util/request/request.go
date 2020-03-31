@@ -9,31 +9,18 @@ import (
 	"strings"
 )
 
-type Request gin.Context
+type Request struct {
+	C *gin.Context
+}
 
 //通过gin.Context转为Request
 func New(c *gin.Context) *Request {
-	return (*Request)(c)
-}
-
-//将Request反转为 gin.Context
-func Ctx(r *Request) *gin.Context {
-	return (*gin.Context)(r)
-}
-
-//包装*gin.Context 的 Abort
-func (r *Request) Abort() {
-	Ctx(r).Abort()
-}
-
-//包装*gin.Context 的 Next
-func (r *Request) Next() {
-	Ctx(r).Next()
+	return &Request{C: c}
 }
 
 //获取GET参数
 func (r *Request) Gets() map[string]string {
-	values := r.Request.URL.Query()
+	values := r.C.Request.URL.Query()
 	temp := map[string]string{}
 	for k, v := range values {
 		temp[k] = v[0]
@@ -41,19 +28,19 @@ func (r *Request) Gets() map[string]string {
 	return temp
 }
 func (r *Request) Get(k string) string {
-	return Ctx(r).Query(k)
+	return r.C.Query(k)
 }
-func (r *Request) DefaultGet(k,v string) string {
-	return Ctx(r).DefaultQuery(k,v)
+func (r *Request) DefaultGet(k, v string) string {
+	return r.C.DefaultQuery(k, v)
 }
 
 //获取POST参数
 func (r *Request) Posts() map[string]string {
-	err := r.Request.ParseForm()
+	err := r.C.Request.ParseForm()
 	if err != nil {
 		log.Fatalf("%v", err)
 	}
-	values := r.Request.PostForm
+	values := r.C.Request.PostForm
 	temp := map[string]string{}
 	for k, v := range values {
 		temp[k] = v[0]
@@ -61,57 +48,58 @@ func (r *Request) Posts() map[string]string {
 	return temp
 }
 func (r *Request) Post(k string) string {
-	return Ctx(r).PostForm(k)
+	return r.C.PostForm(k)
 }
-func (r *Request) DefaultPost(k,v string) string {
-	return Ctx(r).DefaultPostForm(k,v)
+func (r *Request) DefaultPost(k, v string) string {
+	return r.C.DefaultPostForm(k, v)
 }
 
 //获取指定Headers
 func (r *Request) Headers() map[string]string {
 	temp := map[string]string{}
-	for k, v := range r.Request.Header {
+	for k, v := range r.C.Request.Header {
 		temp[k] = v[0]
 	}
 	return temp
 }
 func (r *Request) Header(k string) string {
-	return Ctx(r).GetHeader(k)
+	return r.C.GetHeader(k)
 }
 
 //错误返回请求
-func (r *Request) Error(message interface{}) {
+func (r *Request) Error(message interface{}) bool {
 
-	Ctx(r).JSON(http.StatusOK, map[string]interface{}{
+	r.C.JSON(http.StatusOK, map[string]interface{}{
 		"data":       "",
 		"message":    message,
 		"statusCode": http.StatusBadRequest,
 	})
+	return false
 }
 
 //成功返回请求
-func (r *Request) Success(data interface{}) {
+func (r *Request) Success(data interface{}) bool {
 
-	Ctx(r).JSON(http.StatusOK, map[string]interface{}{
+	r.C.JSON(http.StatusOK, map[string]interface{}{
 		"data":       data,
 		"message":    "",
 		"statusCode": http.StatusOK,
 	})
+	return true
 }
 
 // 仅验证字段是否缺少
 func (r *Request) Validate(list []string) error {
-	ctx := Ctx(r)
-	if strings.ToUpper(ctx.Request.Method) == "POST" {
+	if strings.ToUpper(r.C.Request.Method) == "POST" {
 		for i := 0; i < len(list); i++ {
-			if _, b := ctx.GetPostForm(list[i]); b == false {
+			if _, b := r.C.GetPostForm(list[i]); b == false {
 				return errors.New("缺少字段：" + list[i])
 			}
 		}
 		return nil
 	}
 	for i := 0; i < len(list); i++ {
-		if _, b := ctx.GetQuery(list[i]); b == false {
+		if _, b := r.C.GetQuery(list[i]); b == false {
 			return errors.New("缺少字段：" + list[i])
 		}
 	}

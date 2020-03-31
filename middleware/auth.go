@@ -13,15 +13,15 @@ func Auth() gin.HandlerFunc {
 		t := r.Header("Authorization")
 		if t == "" {
 			r.Error("认证失败")
-			r.Abort()
+			r.C.Abort()
 		}
 		err := token.VerifyJwtToken(t)
 		if err != nil {
 			r.Error("认证失败")
-			r.Abort()
+			r.C.Abort()
 		}
 		//fmt.Println("middleware before")
-		r.Next()
+		r.C.Next()
 		//fmt.Println("middleware after")
 	}
 }

@@ -6,11 +6,10 @@ import (
 	"quick_gin/util/request"
 )
 
-func Add(r *request.Request) {
+func Add(r *request.Request) bool {
 	err := r.Validate([]string{"title", "content", "uid"})
 	if err != nil {
-		r.Error(err.Error())
-		return
+		return r.Error(err.Error())
 	}
 	inputs := r.Posts()
 	articleModel := ArticleModel.Article{
@@ -21,24 +20,21 @@ func Add(r *request.Request) {
 	}
 	err = articleModel.Add()
 	if err != nil {
-		r.Error(err.Error())
-		return
+		return r.Error(err.Error())
 	}
-	r.Success(nil)
+	return r.Success(nil)
 }
 
-func Detail(r *request.Request) {
+func Detail(r *request.Request) bool {
 	err := r.Validate([]string{"id"})
 	if err != nil {
-		r.Error(err.Error())
-		return
+		return r.Error(err.Error())
 	}
 	article := new(ArticleModel.Article)
 	id := lib.Int(r.Id())
 	err = article.Detail(id)
 	if err != nil {
-		r.Error(err.Error())
-		return
+		return r.Error(err.Error())
 	}
-	r.Success(article)
+	return r.Success(article)
 }
