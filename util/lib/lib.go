@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"quick_gin/config/env"
@@ -41,4 +42,13 @@ func MergeMap(m1, m2 map[string]interface{}) {
 	for k, v := range m2 {
 		m1[k] = v
 	}
+}
+
+// interface{} 转 []byte
+func ToByte(v interface{}) []byte {
+	temp, err := json.Marshal(v)
+	if err != nil {
+		return []byte("")
+	}
+	return temp
 }
