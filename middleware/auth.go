@@ -15,7 +15,7 @@ func Auth() gin.HandlerFunc {
 			r.Error("认证失败")
 			r.C.Abort()
 		}
-		err := token.VerifyJwtToken(t)
+		_, err := token.VerifyJwtToken(t)
 		if err != nil {
 			r.Error("认证失败")
 			r.C.Abort()

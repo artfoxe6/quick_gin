@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"quick_gin/util/token"
 	"strconv"
 	"strings"
 )
@@ -133,4 +134,17 @@ func (r *Request) PerPage() int {
 	return perPage
 }
 
-//--------------- end ----------------------
+//--------------- end
+
+//获取token中的clams
+func (r *Request) TokenClams() (map[string]interface{}, error) {
+	t := r.Header("Authorization")
+	if t == "" {
+		return nil, errors.New("Authorization field not found.")
+	}
+	clams, err := token.VerifyJwtToken(t)
+	if err != nil {
+		return nil, err
+	}
+	return clams, nil
+}

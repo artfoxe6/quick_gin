@@ -18,7 +18,7 @@ func CreateJwtToken(data map[string]interface{}) (string, error) {
 }
 
 // 验证token
-func VerifyJwtToken(tokenString string) error {
+func VerifyJwtToken(tokenString string) (map[string]interface{}, error) {
 	t, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", t.Header["alg"])
@@ -26,11 +26,11 @@ func VerifyJwtToken(tokenString string) error {
 		return []byte(env.Jwt.Key), nil
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if claims, ok := t.Claims.(jwt.MapClaims); ok && t.Valid {
-		return claims.Valid()
+		return claims, nil
 	} else {
-		return err
+		return nil, err
 	}
 }
