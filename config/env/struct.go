@@ -10,16 +10,6 @@ var (
 		WriteTimeout    int
 		ShutdownTimeout int
 	}{}
-	ErrLog = struct {
-		Open      int
-		Type      string
-		LocalPath string
-		SentryUrl string
-	}{}
-	StdLog = struct {
-		Open int
-		Path string
-	}{}
 	Database = struct {
 		Connection string
 		User       string
@@ -39,6 +29,14 @@ var (
 	Jwt = struct {
 		Key string
 		Exp int
+	}{}
+	MongoDBConfig = struct {
+		Host          string
+		Username      string
+		Password      string
+		LogCollection string
+		Database      string
+		Timeout       int
 	}{}
 
 	//----------- 定义配置文件结构体 -----------

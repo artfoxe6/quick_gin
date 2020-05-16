@@ -1,7 +1,7 @@
 package UserModel
 
 func (users *Users) ToArray() []map[string]interface{} {
-	temp := []map[string]interface{}{}
+	temp := make([]map[string]interface{}, 0)
 	for _, v := range *users {
 		temp = append(temp, map[string]interface{}{
 			"id":            v.ID,

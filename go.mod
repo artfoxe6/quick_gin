@@ -15,6 +15,7 @@ require (
 	github.com/jinzhu/gorm v1.9.12
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/goconvey v1.6.4 // indirect
+	go.mongodb.org/mongo-driver v1.3.3 // indirect
 	golang.org/x/crypto v0.0.0-20200320181102-891825fb96df
 	gopkg.in/ini.v1 v1.55.0 // indirect
 )

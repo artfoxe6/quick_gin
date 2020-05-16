@@ -23,12 +23,6 @@ func LoadArticleRoute(r *gin.Engine) {
 	 *     "message": "",
 	 *     "statusCode": 200
 	 * }
-	 * @apiErrorExample Error-Response:
-	 * {
-	 *     "data": "",
-	 *     "message": "error reason",
-	 *     "statusCode": 400
-	 * }
 	 */
 	r.POST("/article/add", func(c *gin.Context) {
 		article.Add(request.New(c))
@@ -54,12 +48,6 @@ func LoadArticleRoute(r *gin.Engine) {
 	 *     },
 	 *     "message": "",
 	 *     "statusCode": 200
-	 * }
-	 * @apiErrorExample Error-Response:
-	 * {
-	 *     "data": "",
-	 *     "message": "error reason",
-	 *     "statusCode": 400
 	 * }
 	 */
 	r.GET("/article/detail", pagecache.Second(300, func(c *gin.Context) {
