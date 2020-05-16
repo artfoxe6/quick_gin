@@ -108,7 +108,7 @@ func LoadUserRoute(r *gin.Engine) {
 		/**
 		 * @api {get} /user/info 用户详情
 		 * @apiGroup User
-		 *
+		 * @apiHeader {String} Authorization token
 		 * @apiSuccessExample Success-Response:
 		 * {
 		 *     "data": {

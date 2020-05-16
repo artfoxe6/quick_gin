@@ -2,10 +2,12 @@ package user
 
 import (
 	"golang.org/x/crypto/bcrypt"
+	"quick_gin/config/env"
 	"quick_gin/model/UserModel"
 	"quick_gin/util/lib"
 	"quick_gin/util/request"
 	"quick_gin/util/token"
+	"time"
 )
 
 //添加用户
@@ -60,7 +62,8 @@ func Info(r *request.Request) bool {
 		return r.Error(err.Error())
 	}
 	user := new(UserModel.User)
-	id := lib.Int(r.Id())
+	tokenInfo, _ := r.TokenClams()
+	id := lib.Int(tokenInfo["uid"].(string))
 	err := user.Info(id)
 	if err != nil {
 		return r.Error(err.Error())
@@ -75,6 +78,7 @@ func CreateToken(r *request.Request) bool {
 	}
 	jwtToken, err := token.CreateJwtToken(map[string]interface{}{
 		"uid": r.Get("uid"),
+		"exp": time.Now().Add(time.Duration(env.Jwt.Exp)),
 	})
 	if err != nil {
 		return r.Error(err.Error())
