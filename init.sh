@@ -1,12 +1,16 @@
 #!/bin/bash
 
 # 重命名项目名
-# ./rename.sh new_name
+# ./init.sh new_name
 rename(){
     pwd=`pwd`
     path=${pwd%/*}
     current=${pwd##*/}
-    echo $pwd $path $current
+    read -p "删除项目中的.git目录 y/n: " yes
+    if [ $yes == 'y' ]
+    then
+      rm -rf .git
+    fi
     read_dir $pwd $current $1
     mv $pwd $path/$1
 }

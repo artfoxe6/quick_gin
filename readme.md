@@ -18,8 +18,8 @@
 #### 安装运行
 git clone https://github.com/artfoxe6/quick_gin.git <br />
 cd quick_gin <br />
-\#重命名项目名称 <br />
-./rename.sh my_blog && cd ../my_blog <br />
+\#初始化项目 <br />
+./init.sh my_blog && cd ../my_blog <br />
 \#修改config.ini <br />
 go run main.go <br />
 
