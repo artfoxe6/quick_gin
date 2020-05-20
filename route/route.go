@@ -43,7 +43,6 @@ func Load() *gin.Engine {
 	//		SkipPaths: nil,
 	//	}))
 	//}
-	Route.Static("/apidoc", "apidoc/")
 	//其他路由
 	api.LoadUserRoute(Route)
 	api.LoadArticleRoute(Route)
