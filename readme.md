@@ -2,13 +2,13 @@
 基于Gin整理的一个轻量级接口模板,适合简单的后端接口项目
 
 #### 基于Gin作了什么?
-规划了一套代码组织架构
-对gin.Context扩展
-已配置好MySQL,Redis,MongoDB,JWT开箱即用
-使用Gorm
-使用跨域中间件
-平滑重启
-完整的代码实例和说明文档
+规划了一套代码组织架构 <br />
+对gin.Context扩展 <br />
+已配置好MySQL,Redis,MongoDB,JWT开箱即用 <br />
+使用Gorm <br />
+使用跨域中间件 <br />
+平滑重启 <br />
+完整的代码实例和说明文档 <br />
 
 #### 运行条件：
 + Golang >= 1.12
